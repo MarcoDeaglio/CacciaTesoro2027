@@ -82,6 +82,38 @@
       display: none !important;
     }
 
+    /* STILE LOGO FEDERALE GRANDE (LOGIN) */
+    .logo-login-wrapper {
+      position: relative;
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 18px auto;
+    }
+
+    .logo-login {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--text-color);
+      background: #000;
+      box-shadow: 0 0 12px var(--text-color), inset 0 0 8px var(--text-color);
+      display: block;
+    }
+
+    /* STILE LOGO FEDERALE PICCOLO (DASHBOARD) */
+    .logo-small {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--accent-color);
+      background: #000;
+      box-shadow: 0 0 6px var(--accent-color);
+      display: inline-block;
+      vertical-align: middle;
+    }
+
     .form-group {
       margin-bottom: 18px;
     }
@@ -141,6 +173,12 @@
       margin-bottom: 18px;
       border-bottom: 1px dashed var(--border-color);
       padding-bottom: 10px;
+    }
+
+    .status-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
     .search-section label {
@@ -215,7 +253,7 @@
       overflow: hidden;
       background: #000;
       width: 100%;
-      height: 220px; /* Altezza bloccata per evitare sbordamenti */
+      height: 220px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -224,7 +262,7 @@
     .map-image {
       max-width: 100%;
       max-height: 100%;
-      object-fit: contain; /* Adatta l'immagine interamente dentro il riquadro senza tagliarla */
+      object-fit: contain;
       display: block;
     }
 
@@ -342,6 +380,11 @@
 
     <!-- PANNELLO LOGIN -->
     <div id="login-panel">
+      <!-- Logo federale grande e centrale -->
+      <div class="logo-login-wrapper">
+        <img src="CacciaTesoro2027/Immagini/logo.png" alt="Logo Federale" class="logo-login" onerror="this.style.display='none'">
+      </div>
+      
       <form id="login-form">
         <div class="form-group">
           <label for="username">ID SQUADRA:</label>
@@ -359,7 +402,11 @@
     <!-- PANNELLO DASHBOARD -->
     <div id="dashboard-panel" class="hidden">
       <div class="status-bar">
-        <span>SQUADRA: <strong id="user-display" style="color:var(--accent-color)">-</strong></span>
+        <div class="status-left">
+          <!-- Logo federale piccolo nella barra di stato -->
+          <img src="CacciaTesoro2027/Immagini/logo.png" alt="Logo Federale" class="logo-small" onerror="this.style.display='none'">
+          <span>SQUADRA: <strong id="user-display" style="color:var(--accent-color)">-</strong></span>
+        </div>
         <button class="logout-btn" onclick="logout()">LOGOUT</button>
       </div>
 
@@ -387,14 +434,15 @@
 
     const DATABASE_COORDINATE = {
       "Marco": {
-        "N45-E09": {
-          tipo: "TEXT",
+        "714-652-398": {
+          tipo: "cmd_atto_1",
           luogo: "Campo da Basket",
-          immagine: "CacciaTesoro2027/CacciaTesoro2027/Immagini/basket.png"
+          immagine: "CacciaTesoro2027/Immagini/basket.png",
+          sbloccato: false
         },
         "1": {
           tipo: "cmd_atto_1",
-          luogoSbloccato: "Settore Segreto: Laboratorio Sotterraneo",
+          luogo: "Settore Segreto: Laboratorio Sotterraneo",
           sbloccato: false
         }
       },
@@ -402,11 +450,11 @@
         "N45-E09": {
           tipo: "TEXT",
           luogo: "Campo da Calcio",
-          immagine: "CacciaTesoro2027/Immagini/campo_calcio.jpg"
+          immagine: "CacciaTesoro2027/CacciaTesoro2027/Immagini/campo_calcio.jpg"
         },
         "N99-E99": {
           tipo: "cmd_atto_1",
-          luogoSbloccato: "Settore Segreto: Antenna di Trasmissione",
+          luogo: "Settore Segreto: Antenna di Trasmissione",
           sbloccato: false
         }
       }
@@ -515,7 +563,7 @@
             coordinataCorrenteHacking = inputCoord;
             avviaEventoHacking();
           } else {
-            const posizioneFinal = info.tipo === "cmd_atto_1" ? info.luogoSbloccato : info.luogo;
+            const posizioneFinal = info.luogo;
             
             let htmlImmagine = "";
             if (info.immagine) {
@@ -633,10 +681,23 @@
       const info = DATABASE_COORDINATE[squadraAutenticata][coordinataCorrenteHacking];
       if (info) info.sbloccato = true;
 
+      let htmlImmagine = "";
+      if (info && info.immagine) {
+        htmlImmagine = `
+          <div class="map-image-container">
+            <div class="map-overlay-tag">TARGET AGGANCIATO</div>
+            <img src="${info.immagine}" alt="Mappa Tattica" class="map-image">
+          </div>
+        `;
+      }
+
+      const luogoFinale = info ? info.luogo : "Sconosciuto";
+
       document.getElementById('result-content').innerHTML = `
         <p style="color:var(--text-color); font-weight:bold;">[DATO DECRITTATO]</p>
         <p style="margin-top:8px;">> <strong>Codice:</strong> ${coordinataCorrenteHacking}</p>
-        <p style="margin-top:4px;">> <strong>Luogo:</strong> ${info.luogoSbloccato}</p>
+        <p style="margin-top:4px;">> <strong>Luogo:</strong> ${luogoFinale}</p>
+        ${htmlImmagine}
       `;
 
       coordinataCorrenteHacking = null;
