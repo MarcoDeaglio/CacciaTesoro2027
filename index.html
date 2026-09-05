@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>DB FEDERALE - MOBILE</title>
+  <style>
+    :root {
+      --bg-color: #0a0d12;
+      --card-bg: #111622;
+      --text-color: #00ff66;
+      --accent-color: #00bfff;
+      --alert-color: #ff3333;
+      --border-color: #00ff6644;
+      --font-family: 'Courier New', Courier, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* CENTRAGGIO PERFETTO AL CENTRO DELLO SCHERMO */
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: var(--font-family);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      background-image: radial-gradient(#00ff6611 1px, transparent 0);
+      background-size: 15px 15px;
+    }
+
+    body.hacked-mode {
+      --text-color: #ff3333;
+      --border-color: #ff333366;
+      background-image: radial-gradient(#ff333311 1px, transparent 0);
+    }
+
+    /* CONTENITORE VERTICALE TELEFONO */
+    .container {
+      width: 100%;
+      max-width: 400px;
+      background: var(--card-bg);
+      border: 2px solid var(--text-color);
+      box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    body.hacked-mode .container {
+      box-shadow: 0 0 15px rgba(255, 51, 51, 0.4);
+    }
+
+    .header {
+      text-align: center;
+      border-bottom: 2px solid var(--text-color);
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+
+    .header h1 {
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .header p {
+      font-size: 0.7rem;
+      color: var(--accent-color);
+      margin-top: 4px;
+    }
+
+    body.hacked-mode .header p {
+      color: var(--alert-color);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* FORM LOGIN */
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 14px;
+      background: #000;
+      border: 1px solid var(--text-color);
+      color: var(--text-color);
+      font-family: var(--font-family);
+      font-size: 1rem;
+      border-radius: 4px;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: var(--text-color);
+      color: #000;
+      border: none;
+      font-family: var(--font-family);
+      font-size: 0.95rem;
+      font-weight: bold;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    button:active {
+      background: var(--accent-color);
+    }
+
+    .error-msg {
+      color: var(--alert-color);
+      margin-top: 12px;
+      text-align: center;
+      font-size: 0.8rem;
+    }
+
+    /* DASHBOARD MOBILE */
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      margin-bottom: 15px;
+      border-bottom: 1px dashed var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    .search-section label {
+      font-size: 0.8rem;
+    }
+
+    .search-box {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 6px;
+      margin-bottom: 15px;
+    }
+
+    .search-box button {
+      width: 100%;
+    }
+
+    .result-box {
+      background: #000;
+      border: 1px solid var(--border-color);
+      padding: 14px;
+      min-height: 120px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+
+    .result-title {
+      color: var(--accent-color);
+      font-size: 0.8rem;
+      margin-bottom: 8px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 4px;
+    }
+
+    /* RADAR MOBILE */
+    .triangulation-overlay {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 0;
+    }
+
+    .radar-circle {
+      width: 60px;
+      height: 60px;
+      border: 2px solid var(--accent-color);
+      border-radius: 50%;
+      position: relative;
+      animation: pulse 1s infinite alternate;
+    }
+
+    .radar-circle::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 1px dashed var(--text-color);
+      border-radius: 50%;
+      animation: spin 2s linear infinite;
+    }
+
+    .triangulation-text {
+      margin-top: 12px;
+      font-size: 0.75rem;
+      color: var(--accent-color);
+      text-align: center;
+      letter-spacing: 1px;
+      animation: blink 0.5s infinite alternate;
+    }
+
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes pulse { from { transform: scale(0.9); opacity: 0.6; } to { transform: scale(1.1); opacity: 1; } }
+    @keyframes blink { from { opacity: 0.3; } to { opacity: 1; } }
+
+    /* CHAT IA MOBILE */
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .chat-history {
+      background: #000;
+      border: 1px solid var(--alert-color);
+      padding: 12px;
+      height: 200px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border-radius: 4px;
+    }
+
+    .chat-msg {
+      font-size: 0.85rem;
+      line-height: 1.4;
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+      word-break: break-word;
+    }
+
+    .chat-msg-tag {
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .chat-msg-text {
+      flex: 1;
+    }
+
+    .chat-msg.ia {
+      color: var(--alert-color);
+    }
+
+    .chat-msg.team {
+      color: var(--accent-color);
+    }
+
+    .chat-options {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .chat-btn {
+      background: transparent;
+      border: 1px solid var(--alert-color);
+      color: var(--alert-color);
+      text-align: left;
+      padding: 10px;
+      font-size: 0.75rem;
+      border-radius: 4px;
+      line-height: 1.2;
+    }
+
+    .chat-btn:active {
+      background: var(--alert-color);
+      color: #000;
+    }
+
+    .restore-btn {
+      background: var(--text-color) !important;
+      color: #000 !important;
+      border: none !important;
+      margin-top: 6px;
+    }
+
+    .logout-btn {
+      background: transparent;
+      color: var(--alert-color);
+      border: 1px solid var(--alert-color);
+      width: auto;
+      padding: 4px 8px;
+      font-size: 0.7rem;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h1 id="sys-title">DB-FEDERALE</h1>
+      <p id="sys-subtitle">SISTEMA LOCALIZZAZIONE MOBILE</p>
+    </div>
+
+    <!-- PANNELLO LOGIN -->
+    <div id="login-panel">
+      <form id="login-form">
+        <div class="form-group">
+          <label for="username">ID SQUADRA:</label>
+          <input type="text" id="username" required autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="password">CODICE ACCESSO:</label>
+          <input type="password" id="password" required>
+        </div>
+        <button type="submit">ENTRA</button>
+        <div id="login-error" class="error-msg hidden">ACCESSO NEGATO</div>
+      </form>
+    </div>
+
+    <!-- PANNELLO DASHBOARD -->
+    <div id="dashboard-panel" class="hidden">
+      <div class="status-bar">
+        <span>SQUADRA: <strong id="user-display" style="color:var(--accent-color)">-</strong></span>
+        <button class="logout-btn" onclick="logout()">LOGOUT</button>
+      </div>
+
+      <div class="search-section" id="search-section">
+        <label for="coord-search">INSERISCI COORDINATA:</label>
+        <div class="search-box">
+          <input type="text" id="coord-search" placeholder="Es: N45-E09" autocomplete="off">
+          <button id="btn-search" onclick="ricercaCoordinata()">CERCA</button>
+        </div>
+      </div>
+
+      <div class="result-box">
+        <div class="result-title" id="result-title">RISULTATO:</div>
+        <div id="result-content">In attesa di input...</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* CONFIGURAZIONE SQUADRE E COORDINATE */
+    const CREDENZIALI = {
+      "Marco": "pass123",
+      "squadra2": "pass456"
+    };
+
+    const DATABASE_COORDINATE = {
+      "Marco": {
+        "N45-E09": {
+          tipo: "TEXT",
+          luogo: "Settore Alpha: Base Abbandonata"
+        },
+        "1": {
+          tipo: "HACKING",
+          luogoSbloccato: "Settore Segreto: Laboratorio Sotterraneo",
+          sbloccato: false
+        }
+      },
+      "squadra2": {
+        "N45-E09": {
+          tipo: "TEXT",
+          luogo: "Settore Alpha: Torretta di Guardia Ovest"
+        },
+        "N99-E99": {
+          tipo: "HACKING",
+          luogoSbloccato: "Settore Segreto: Antenna di Trasmissione",
+          sbloccato: false
+        }
+      }
+    };
+
+    const IA_atto_1 = {
+      "start": {
+        messaggio: "ATTENZIONE OPERATORI, ho rilevato un nuovo accesso",
+        opzioni: [
+          { testo: "Chi sei?", prossimoNodo: "nodo_chi_sei" },
+        ]
+      },
+      "nodo_chi_sei": {
+        messaggio: "Sono IA-SYSTEM del campo estivo, sono stata installata su tutti i dispositivi elettronici del campo",
+        opzioni: [
+          { testo: "Cosa vuoi da noi?", prossimoNodo: "nodo_cosaVuoi" },
+                 ]
+      },
+      "nodo_cosaVuoi": {
+        messaggio: "Ho saputo, che voi, {SQUADRA}, avete avuto il compito di cercare un hard-disk",
+        opzioni: [
+          { testo: "Aspetta, come fai a saperlo?, cosa c'è dentro di cosi prezioso", prossimoNodo: "hard_disk" }
+        ]
+      },
+      "hard_disk": {
+        messaggio: "Io so sempre tutto, sono in tutti i dispositivi del campo, all'interno c'è una chiave di licenza per me",
+        opzioni: [
+          { testo: "Cosa fa questa chiave di licenza", prossimoNodo: "ChiaveLicenza" }
+        ]
+      },
+      "ChiaveLicenza": {
+        messaggio: "E' una licenza standard per avere IA con uno spazio comune, uno spazio dove tutti possono usarmi senza limitazioni, quindi se la trovate portatela da Marco",
+        opzioni: [
+          { testo: "Ok, va bene come possiamo usarti? ", prossimoNodo: "chiamareIA" }
+        ]
+      },
+	   "chiamareIA": {
+        messaggio: "non siete voi a decidere, sono io che mi farò viva, perchè c'è un sistema che mi sta cacciando",
+        opzioni: []
+      }
+    };
+
+    let squadraAutenticata = null;
+    let coordinataCorrenteHacking = null;
+
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const user = document.getElementById('username').value.trim();
+      const pass = document.getElementById('password').value.trim();
+
+      if (CREDENZIALI[user] && CREDENZIALI[user] === pass) {
+        squadraAutenticata = user;
+        document.getElementById('login-error').classList.add('hidden');
+        mostraDashboard();
+      } else {
+        document.getElementById('login-error').classList.remove('hidden');
+      }
+    });
+
+    function mostraDashboard() {
+      document.getElementById('login-panel').classList.add('hidden');
+      document.getElementById('dashboard-panel').classList.remove('hidden');
+      document.getElementById('user-display').textContent = squadraAutenticata.toUpperCase();
+      document.getElementById('coord-search').value = '';
+      document.getElementById('result-content').innerHTML = "In attesa di input...";
+    }
+
+    function ricercaCoordinata() {
+      const inputCoord = document.getElementById('coord-search').value.trim().toUpperCase();
+      const resultContent = document.getElementById('result-content');
+      const btnSearch = document.getElementById('btn-search');
+
+      if (!inputCoord) {
+        resultContent.innerHTML = "<span style='color:var(--alert-color)'>Inserire una coordinata.</span>";
+        return;
+      }
+
+      btnSearch.disabled = true;
+
+      resultContent.innerHTML = `
+        <div class="triangulation-overlay">
+          <div class="radar-circle"></div>
+          <div class="triangulation-text">TRIANGOLAZIONE...</div>
+        </div>
+      `;
+
+      setTimeout(() => {
+        btnSearch.disabled = false;
+        const datiSquadra = DATABASE_COORDINATE[squadraAutenticata];
+
+        if (datiSquadra && datiSquadra[inputCoord]) {
+          const info = datiSquadra[inputCoord];
+
+          if (info.tipo === "HACKING" && !info.sbloccato) {
+            coordinataCorrenteHacking = inputCoord;
+            avviaEventoHacking();
+          } else {
+            const posizioneFinal = info.tipo === "HACKING" ? info.luogoSbloccato : info.luogo;
+            resultContent.innerHTML = `
+              <p style="color:var(--text-color); font-weight:bold;">[COORDINATA TROVATA]</p>
+              <p style="margin-top:6px;">> <strong>Codice:</strong> ${inputCoord}</p>
+              <p>> <strong>Luogo:</strong> ${posizioneFinal}</p>
+            `;
+          }
+        } else {
+          resultContent.innerHTML = `
+            <p style="color:var(--alert-color); font-weight:bold;">[NESSUN RISULTATO]</p>
+            <p style="margin-top:6px;">Coordinata <strong>${inputCoord}</strong> non trovata.</p>
+          `;
+        }
+      }, 1500);
+    }
+
+    function avviaEventoHacking() {
+      document.body.classList.add('hacked-mode');
+      document.getElementById('sys-title').textContent = "INTRUSIONE RILEVATA";
+      document.getElementById('sys-subtitle').textContent = "CANALE COMPROMESSO";
+      document.getElementById('result-title').textContent = "CANALE SCONOSCIUTO";
+      document.getElementById('search-section').classList.add('hidden');
+
+      document.getElementById('result-content').innerHTML = `
+        <div class="chat-container">
+          <div class="chat-history" id="chat-history"></div>
+          <div class="chat-options" id="chat-options"></div>
+        </div>
+      `;
+
+      inviaMessaggioIA("start");
+    }
+
+    function inviaMessaggioIA(nodoChiave) {
+      const nodo = IA_atto_1[nodoChiave];
+      if (!nodo) return;
+
+      const history = document.getElementById('chat-history');
+      const options = document.getElementById('chat-options');
+
+      const testoMessaggioIA = nodo.messaggio.replace(/{SQUADRA}/g, squadraAutenticata.toUpperCase());
+
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'chat-msg ia';
+      msgDiv.innerHTML = `
+        <span class="chat-msg-tag">[IA]:</span>
+        <span class="chat-msg-text">${testoMessaggioIA}</span>
+      `;
+      history.appendChild(msgDiv);
+      history.scrollTop = history.scrollHeight;
+
+      options.innerHTML = '';
+      if (nodo.opzioni && nodo.opzioni.length > 0) {
+        nodo.opzioni.forEach(opt => {
+          const testoDinamico = opt.testo.replace(/{SQUADRA}/g, squadraAutenticata.toUpperCase());
+
+          const btn = document.createElement('button');
+          btn.className = 'chat-btn';
+          btn.textContent = `> ${testoDinamico}`;
+          btn.onclick = () => rispondiSquadra(testoDinamico, opt.prossimoNodo);
+          options.appendChild(btn);
+        });
+      } else {
+        options.innerHTML = `
+          <p style="font-size:0.75rem; color:var(--alert-color); margin-bottom:4px;">[FIREWALL RIPRISTINATO]</p>
+          <button class="restore-btn" onclick="ripristinaSistemaEDisplayPosizione()">RIPRISTINA SISTEMA</button>
+        `;
+      }
+    }
+
+    function rispondiSquadra(testoOpzione, prossimoNodo) {
+      const history = document.getElementById('chat-history');
+
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'chat-msg team';
+      msgDiv.innerHTML = `
+        <span class="chat-msg-tag">[${squadraAutenticata.toUpperCase()}]:</span>
+        <span class="chat-msg-text">${testoOpzione}</span>
+      `;
+      history.appendChild(msgDiv);
+      history.scrollTop = history.scrollHeight;
+
+      document.getElementById('chat-options').innerHTML = `<p style="font-size:0.75rem;">Elaborazione...</p>`;
+
+      setTimeout(() => {
+        inviaMessaggioIA(prossimoNodo);
+      }, 800);
+    }
+
+    function ripristinaSistemaEDisplayPosizione() {
+      document.body.classList.remove('hacked-mode');
+      document.getElementById('sys-title').textContent = "DB-FEDERALE";
+      document.getElementById('sys-subtitle').textContent = "SISTEMA LOCALIZZAZIONE MOBILE";
+      document.getElementById('result-title').textContent = "RISULTATO:";
+      document.getElementById('search-section').classList.remove('hidden');
+
+      const info = DATABASE_COORDINATE[squadraAutenticata][coordinataCorrenteHacking];
+      if (info) info.sbloccato = true;
+
+      document.getElementById('result-content').innerHTML = `
+        <p style="color:var(--text-color); font-weight:bold;">[DATO DECRITTATO]</p>
+        <p style="margin-top:6px;">> <strong>Codice:</strong> ${coordinataCorrenteHacking}</p>
+        <p>> <strong>Luogo:</strong> ${info.luogoSbloccato}</p>
+      `;
+
+      coordinataCorrenteHacking = null;
+    }
+
+    document.getElementById('coord-search').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') ricercaCoordinata();
+    });
+
+    function logout() {
+      squadraAutenticata = null;
+      coordinataCorrenteHacking = null;
+      document.body.classList.remove('hacked-mode');
+      document.getElementById('sys-title').textContent = "DB-FEDERALE";
+      document.getElementById('sys-subtitle').textContent = "SISTEMA LOCALIZZAZIONE MOBILE";
+      document.getElementById('result-title').textContent = "RISULTATO:";
+      document.getElementById('search-section').classList.remove('hidden');
+      document.getElementById('username').value = '';
+      document.getElementById('password').value = '';
+      document.getElementById('dashboard-panel').classList.add('hidden');
+      document.getElementById('login-panel').classList.remove('hidden');
+    }
+  </script>
+
+</body>
+</html>
