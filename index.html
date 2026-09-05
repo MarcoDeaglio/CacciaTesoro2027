@@ -31,7 +31,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 12px;
+      padding: 10px;
       background-image: radial-gradient(#00ff6611 1px, transparent 0);
       background-size: 15px 15px;
     }
@@ -45,11 +45,11 @@
     /* CONTENITORE VERTICALE TELEFONO */
     .container {
       width: 100%;
-      max-width: 420px;
+      max-width: 440px;
       background: var(--card-bg);
       border: 2px solid var(--text-color);
       box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
-      padding: 18px;
+      padding: 20px;
       border-radius: 8px;
     }
 
@@ -60,20 +60,20 @@
     .header {
       text-align: center;
       border-bottom: 2px solid var(--text-color);
-      padding-bottom: 10px;
-      margin-bottom: 15px;
+      padding-bottom: 12px;
+      margin-bottom: 18px;
     }
 
     .header h1 {
-      font-size: 1.3rem; /* INGRANDITO */
+      font-size: 1.6rem; /* INGRANDITO NOTEVOLMENTE */
       letter-spacing: 1px;
       text-transform: uppercase;
     }
 
     .header p {
-      font-size: 0.85rem; /* INGRANDITO */
+      font-size: 1rem; /* INGRANDITO */
       color: var(--accent-color);
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     body.hacked-mode .header p {
@@ -86,41 +86,42 @@
 
     /* FORM LOGIN */
     .form-group {
-      margin-bottom: 15px;
+      margin-bottom: 18px;
     }
 
     label {
       display: block;
-      margin-bottom: 6px;
-      font-size: 0.95rem; /* INGRANDITO */
+      margin-bottom: 8px;
+      font-size: 1.15rem; /* INGRANDITO */
+      font-weight: bold;
       letter-spacing: 1px;
     }
 
     input[type="text"], input[type="password"] {
       width: 100%;
-      padding: 14px;
+      padding: 16px;
       background: #000;
-      border: 1px solid var(--text-color);
+      border: 2px solid var(--text-color);
       color: var(--text-color);
       font-family: var(--font-family);
-      font-size: 1.1rem; /* INGRANDITO */
-      border-radius: 4px;
+      font-size: 1.25rem; /* INGRANDITO PER FACILITARE LA DIGITAZIONE */
+      border-radius: 6px;
       outline: none;
     }
 
     button {
       width: 100%;
-      padding: 14px;
+      padding: 16px;
       background: var(--text-color);
       color: #000;
       border: none;
       font-family: var(--font-family);
-      font-size: 1.05rem; /* INGRANDITO */
+      font-size: 1.2rem; /* INGRANDITO */
       font-weight: bold;
       cursor: pointer;
       text-transform: uppercase;
       letter-spacing: 1px;
-      border-radius: 4px;
+      border-radius: 6px;
       transition: background 0.2s;
     }
 
@@ -130,9 +131,9 @@
 
     .error-msg {
       color: var(--alert-color);
-      margin-top: 12px;
+      margin-top: 14px;
       text-align: center;
-      font-size: 0.9rem; /* INGRANDITO */
+      font-size: 1.1rem; /* INGRANDITO */
     }
 
     /* DASHBOARD MOBILE */
@@ -140,22 +141,22 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.9rem; /* INGRANDITO */
-      margin-bottom: 15px;
+      font-size: 1.1rem; /* INGRANDITO */
+      margin-bottom: 18px;
       border-bottom: 1px dashed var(--border-color);
-      padding-bottom: 8px;
+      padding-bottom: 10px;
     }
 
     .search-section label {
-      font-size: 0.95rem; /* INGRANDITO */
+      font-size: 1.15rem; /* INGRANDITO */
     }
 
     .search-box {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      margin-top: 6px;
-      margin-bottom: 15px;
+      gap: 10px;
+      margin-top: 8px;
+      margin-bottom: 18px;
     }
 
     .search-box button {
@@ -165,18 +166,18 @@
     .result-box {
       background: #000;
       border: 1px solid var(--border-color);
-      padding: 14px;
-      min-height: 120px;
-      border-radius: 4px;
-      font-size: 1rem; /* INGRANDITO */
+      padding: 16px;
+      min-height: 140px;
+      border-radius: 6px;
+      font-size: 1.15rem; /* INGRANDITO */
     }
 
     .result-title {
       color: var(--accent-color);
-      font-size: 0.9rem; /* INGRANDITO */
-      margin-bottom: 8px;
+      font-size: 1.1rem; /* INGRANDITO */
+      margin-bottom: 10px;
       border-bottom: 1px solid var(--border-color);
-      padding-bottom: 4px;
+      padding-bottom: 6px;
     }
 
     /* RADAR MOBILE */
@@ -189,9 +190,9 @@
     }
 
     .radar-circle {
-      width: 65px;
-      height: 65px;
-      border: 2px solid var(--accent-color);
+      width: 70px;
+      height: 70px;
+      border: 3px solid var(--accent-color);
       border-radius: 50%;
       position: relative;
       animation: pulse 1s infinite alternate;
@@ -202,14 +203,14 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      border: 1px dashed var(--text-color);
+      border: 2px dashed var(--text-color);
       border-radius: 50%;
       animation: spin 2s linear infinite;
     }
 
     .triangulation-text {
-      margin-top: 12px;
-      font-size: 0.85rem; /* INGRANDITO */
+      margin-top: 14px;
+      font-size: 1rem; /* INGRANDITO */
       color: var(--accent-color);
       text-align: center;
       letter-spacing: 1px;
@@ -220,37 +221,37 @@
     @keyframes pulse { from { transform: scale(0.9); opacity: 0.6; } to { transform: scale(1.1); opacity: 1; } }
     @keyframes blink { from { opacity: 0.3; } to { opacity: 1; } }
 
-    /* CHAT IA MOBILE (TESTI INGRANDITI) */
+    /* CHAT IA MOBILE (TESTI MOLTO PIÙ GRANDI) */
     .chat-container {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
     .chat-history {
       background: #000;
-      border: 1px solid var(--alert-color);
-      padding: 12px;
-      height: 230px; /* ALTEZZA AUMENTATA PER OSPITARE TESTO PIÙ GRANDE */
+      border: 2px solid var(--alert-color);
+      padding: 14px;
+      height: 260px; /* ALTEZZA AUMENTATA PER VEDERE BENE I TESTI GRANDI */
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      border-radius: 4px;
+      gap: 16px;
+      border-radius: 6px;
     }
 
     .chat-msg {
-      font-size: 1rem; /* INGRANDITO PER LEGGIBILITÀ */
+      font-size: 1.15rem; /* MOLTO INGRANDITO */
       line-height: 1.4;
       display: flex;
-      gap: 6px;
+      gap: 8px;
       align-items: flex-start;
       word-break: break-word;
     }
 
     .chat-msg-tag {
       font-weight: bold;
-      font-size: 1.05rem; /* ETICHETTA PIÙ VISIBILE */
+      font-size: 1.2rem; /* ETICHETTA IN EVIDENZA */
       white-space: nowrap;
     }
 
@@ -269,19 +270,20 @@
     .chat-options {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
 
     .chat-btn {
       background: transparent;
-      border: 1px solid var(--alert-color);
+      border: 2px solid var(--alert-color);
       color: var(--alert-color);
       text-align: left;
-      padding: 12px;
-      font-size: 0.9rem; /* INGRANDITO */
-      border-radius: 4px;
-      line-height: 1.3;
+      padding: 14px;
+      font-size: 1.05rem; /* INGRANDITO */
+      border-radius: 6px;
+      line-height: 1.35;
       font-family: var(--font-family);
+      font-weight: bold;
     }
 
     .chat-btn:active {
@@ -293,8 +295,8 @@
       background: var(--text-color) !important;
       color: #000 !important;
       border: none !important;
-      margin-top: 6px;
-      font-size: 1rem !important;
+      margin-top: 8px;
+      font-size: 1.15rem !important;
     }
 
     .logout-btn {
@@ -302,8 +304,8 @@
       color: var(--alert-color);
       border: 1px solid var(--alert-color);
       width: auto;
-      padding: 6px 10px;
-      font-size: 0.8rem; /* INGRANDITO */
+      padding: 6px 12px;
+      font-size: 0.95rem; /* INGRANDITO */
       border-radius: 4px;
     }
   </style>
@@ -481,14 +483,14 @@
             const posizioneFinal = info.tipo === "HACKING" ? info.luogoSbloccato : info.luogo;
             resultContent.innerHTML = `
               <p style="color:var(--text-color); font-weight:bold;">[COORDINATA TROVATA]</p>
-              <p style="margin-top:6px;">> <strong>Codice:</strong> ${inputCoord}</p>
-              <p>> <strong>Luogo:</strong> ${posizioneFinal}</p>
+              <p style="margin-top:8px;">> <strong>Codice:</strong> ${inputCoord}</p>
+              <p style="margin-top:4px;">> <strong>Luogo:</strong> ${posizioneFinal}</p>
             `;
           }
         } else {
           resultContent.innerHTML = `
             <p style="color:var(--alert-color); font-weight:bold;">[NESSUN RISULTATO]</p>
-            <p style="margin-top:6px;">Coordinata <strong>${inputCoord}</strong> non trovata.</p>
+            <p style="margin-top:8px;">Coordinata <strong>${inputCoord}</strong> non trovata.</p>
           `;
         }
       }, 1500);
@@ -542,7 +544,7 @@
         });
       } else {
         options.innerHTML = `
-          <p style="font-size:0.85rem; color:var(--alert-color); margin-bottom:4px;">[INTRUSO RIMOSSO DAL SISTEMA]</p>
+          <p style="font-size:0.95rem; color:var(--alert-color); margin-bottom:6px; font-weight:bold;">[INTRUSO RIMOSSO DAL SISTEMA]</p>
           <button class="restore-btn" onclick="ripristinaSistemaEDisplayPosizione()">RIPRISTINA SISTEMA</button>
         `;
       }
@@ -560,7 +562,7 @@
       history.appendChild(msgDiv);
       history.scrollTop = history.scrollHeight;
 
-      document.getElementById('chat-options').innerHTML = `<p style="font-size:0.85rem;">Elaborazione...</p>`;
+      document.getElementById('chat-options').innerHTML = `<p style="font-size:0.95rem; font-weight:bold;">Elaborazione...</p>`;
 
       setTimeout(() => {
         inviaMessaggioIA(prossimoNodo);
@@ -579,8 +581,8 @@
 
       document.getElementById('result-content').innerHTML = `
         <p style="color:var(--text-color); font-weight:bold;">[DATO DECRITTATO]</p>
-        <p style="margin-top:6px;">> <strong>Codice:</strong> ${coordinataCorrenteHacking}</p>
-        <p>> <strong>Luogo:</strong> ${info.luogoSbloccato}</p>
+        <p style="margin-top:8px;">> <strong>Codice:</strong> ${coordinataCorrenteHacking}</p>
+        <p style="margin-top:4px;">> <strong>Luogo:</strong> ${info.luogoSbloccato}</p>
       `;
 
       coordinataCorrenteHacking = null;
