@@ -22,7 +22,6 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* CENTRAGGIO PERFETTO AL CENTRO DELLO SCHERMO */
     body {
       background-color: var(--bg-color);
       color: var(--text-color);
@@ -42,7 +41,6 @@
       background-image: radial-gradient(#ff333311 1px, transparent 0);
     }
 
-    /* CONTENITORE VERTICALE TELEFONO */
     .container {
       width: 100%;
       max-width: 440px;
@@ -65,13 +63,13 @@
     }
 
     .header h1 {
-      font-size: 1.6rem; /* INGRANDITO NOTEVOLMENTE */
+      font-size: 1.6rem;
       letter-spacing: 1px;
       text-transform: uppercase;
     }
 
     .header p {
-      font-size: 1rem; /* INGRANDITO */
+      font-size: 1rem;
       color: var(--accent-color);
       margin-top: 6px;
     }
@@ -84,7 +82,6 @@
       display: none !important;
     }
 
-    /* FORM LOGIN */
     .form-group {
       margin-bottom: 18px;
     }
@@ -92,7 +89,7 @@
     label {
       display: block;
       margin-bottom: 8px;
-      font-size: 1.15rem; /* INGRANDITO */
+      font-size: 1.15rem;
       font-weight: bold;
       letter-spacing: 1px;
     }
@@ -104,7 +101,7 @@
       border: 2px solid var(--text-color);
       color: var(--text-color);
       font-family: var(--font-family);
-      font-size: 1.25rem; /* INGRANDITO PER FACILITARE LA DIGITAZIONE */
+      font-size: 1.25rem;
       border-radius: 6px;
       outline: none;
     }
@@ -116,7 +113,7 @@
       color: #000;
       border: none;
       font-family: var(--font-family);
-      font-size: 1.2rem; /* INGRANDITO */
+      font-size: 1.2rem;
       font-weight: bold;
       cursor: pointer;
       text-transform: uppercase;
@@ -133,22 +130,21 @@
       color: var(--alert-color);
       margin-top: 14px;
       text-align: center;
-      font-size: 1.1rem; /* INGRANDITO */
+      font-size: 1.1rem;
     }
 
-    /* DASHBOARD MOBILE */
     .status-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 1.1rem; /* INGRANDITO */
+      font-size: 1.1rem;
       margin-bottom: 18px;
       border-bottom: 1px dashed var(--border-color);
       padding-bottom: 10px;
     }
 
     .search-section label {
-      font-size: 1.15rem; /* INGRANDITO */
+      font-size: 1.15rem;
     }
 
     .search-box {
@@ -167,61 +163,87 @@
       background: #000;
       border: 1px solid var(--border-color);
       padding: 16px;
-      min-height: 140px;
+      max-height: 400px;
+      overflow-y: auto;
       border-radius: 6px;
-      font-size: 1.15rem; /* INGRANDITO */
+      font-size: 1.15rem;
     }
 
     .result-title {
       color: var(--accent-color);
-      font-size: 1.1rem; /* INGRANDITO */
+      font-size: 1.1rem;
       margin-bottom: 10px;
       border-bottom: 1px solid var(--border-color);
       padding-bottom: 6px;
     }
 
-    /* RADAR MOBILE */
-    .triangulation-overlay {
+    /* VIDEO DI RINTRACCIAMENTO */
+    .scan-video-container {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 15px 0;
+      padding: 5px 0;
     }
 
-    .radar-circle {
-      width: 70px;
-      height: 70px;
-      border: 3px solid var(--accent-color);
-      border-radius: 50%;
-      position: relative;
-      animation: pulse 1s infinite alternate;
-    }
-
-    .radar-circle::before {
-      content: '';
-      position: absolute;
+    .scan-video {
       width: 100%;
-      height: 100%;
-      border: 2px dashed var(--text-color);
-      border-radius: 50%;
-      animation: spin 2s linear infinite;
+      max-height: 180px;
+      object-fit: contain;
+      border: 2px solid var(--accent-color);
+      border-radius: 4px;
+      background: #000;
     }
 
-    .triangulation-text {
-      margin-top: 14px;
-      font-size: 1rem; /* INGRANDITO */
+    .scan-text {
+      margin-top: 8px;
+      font-size: 0.95rem;
       color: var(--accent-color);
       text-align: center;
       letter-spacing: 1px;
       animation: blink 0.5s infinite alternate;
     }
 
-    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    @keyframes pulse { from { transform: scale(0.9); opacity: 0.6; } to { transform: scale(1.1); opacity: 1; } }
     @keyframes blink { from { opacity: 0.3; } to { opacity: 1; } }
 
-    /* CHAT IA MOBILE (TESTI MOLTO PIÙ GRANDI) */
+    /* CONTENITORE IMMAGINE PERFETTAMENTE PROPORZIONATO E FISSO */
+    .map-image-container {
+      margin-top: 14px;
+      position: relative;
+      border: 2px solid var(--text-color);
+      border-radius: 6px;
+      overflow: hidden;
+      background: #000;
+      width: 100%;
+      height: 220px; /* Altezza bloccata per evitare sbordamenti */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .map-image {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain; /* Adatta l'immagine interamente dentro il riquadro senza tagliarla */
+      display: block;
+    }
+
+    .map-overlay-tag {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(0, 0, 0, 0.85);
+      color: var(--text-color);
+      padding: 4px 8px;
+      font-size: 0.8rem;
+      border: 1px solid var(--text-color);
+      border-radius: 3px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      z-index: 2;
+    }
+
+    /* CHAT IA MOBILE */
     .chat-container {
       display: flex;
       flex-direction: column;
@@ -232,7 +254,7 @@
       background: #000;
       border: 2px solid var(--alert-color);
       padding: 14px;
-      height: 260px; /* ALTEZZA AUMENTATA PER VEDERE BENE I TESTI GRANDI */
+      height: 260px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -241,7 +263,7 @@
     }
 
     .chat-msg {
-      font-size: 1.15rem; /* MOLTO INGRANDITO */
+      font-size: 1.15rem;
       line-height: 1.4;
       display: flex;
       gap: 8px;
@@ -251,7 +273,7 @@
 
     .chat-msg-tag {
       font-weight: bold;
-      font-size: 1.2rem; /* ETICHETTA IN EVIDENZA */
+      font-size: 1.2rem;
       white-space: nowrap;
     }
 
@@ -279,7 +301,7 @@
       color: var(--alert-color);
       text-align: left;
       padding: 14px;
-      font-size: 1.05rem; /* INGRANDITO */
+      font-size: 1.05rem;
       border-radius: 6px;
       line-height: 1.35;
       font-family: var(--font-family);
@@ -305,7 +327,7 @@
       border: 1px solid var(--alert-color);
       width: auto;
       padding: 6px 12px;
-      font-size: 0.95rem; /* INGRANDITO */
+      font-size: 0.95rem;
       border-radius: 4px;
     }
   </style>
@@ -367,10 +389,11 @@
       "Marco": {
         "N45-E09": {
           tipo: "TEXT",
-          luogo: "Settore Alpha: Base Abbandonata"
+          luogo: "Campo da Basket",
+          immagine: "immagini/basket.png"
         },
         "1": {
-          tipo: "HACKING",
+          tipo: "cmd_atto_1",
           luogoSbloccato: "Settore Segreto: Laboratorio Sotterraneo",
           sbloccato: false
         }
@@ -378,10 +401,11 @@
       "squadra2": {
         "N45-E09": {
           tipo: "TEXT",
-          luogo: "Settore Alpha: Torretta di Guardia Ovest"
+          luogo: "Campo da Calcio",
+          immagine: "immagini/campo_calcio.jpg"
         },
         "N99-E99": {
-          tipo: "HACKING",
+          tipo: "cmd_atto_1",
           luogoSbloccato: "Settore Segreto: Antenna di Trasmissione",
           sbloccato: false
         }
@@ -463,28 +487,51 @@
       btnSearch.disabled = true;
 
       resultContent.innerHTML = `
-        <div class="triangulation-overlay">
-          <div class="radar-circle"></div>
-          <div class="triangulation-text">TRIANGOLAZIONE...</div>
+        <div class="scan-video-container">
+          <video id="video-rintraccia" class="scan-video" autoplay muted playsinline webkit-playsinline>
+            <source src="immagini/rintraccia.mp4" type="video/mp4">
+          </video>
+          <div class="scan-text">RINTRACCIAMENTO SEGNALE...</div>
         </div>
       `;
 
-      setTimeout(() => {
+      const videoElement = document.getElementById('video-rintraccia');
+      if (videoElement) {
+        videoElement.play().catch(e => console.log("Autoplay bloccato:", e));
+      }
+
+      let completato = false;
+      const mostraRisultato = () => {
+        if (completato) return;
+        completato = true;
+
         btnSearch.disabled = false;
         const datiSquadra = DATABASE_COORDINATE[squadraAutenticata];
 
         if (datiSquadra && datiSquadra[inputCoord]) {
           const info = datiSquadra[inputCoord];
 
-          if (info.tipo === "HACKING" && !info.sbloccato) {
+          if (info.tipo === "cmd_atto_1" && !info.sbloccato) {
             coordinataCorrenteHacking = inputCoord;
             avviaEventoHacking();
           } else {
-            const posizioneFinal = info.tipo === "HACKING" ? info.luogoSbloccato : info.luogo;
+            const posizioneFinal = info.tipo === "cmd_atto_1" ? info.luogoSbloccato : info.luogo;
+            
+            let htmlImmagine = "";
+            if (info.immagine) {
+              htmlImmagine = `
+                <div class="map-image-container">
+                  <div class="map-overlay-tag">TARGET AGGANCIATO</div>
+                  <img src="${info.immagine}" alt="Mappa Tattica" class="map-image">
+                </div>
+              `;
+            }
+
             resultContent.innerHTML = `
               <p style="color:var(--text-color); font-weight:bold;">[COORDINATA TROVATA]</p>
               <p style="margin-top:8px;">> <strong>Codice:</strong> ${inputCoord}</p>
               <p style="margin-top:4px;">> <strong>Luogo:</strong> ${posizioneFinal}</p>
+              ${htmlImmagine}
             `;
           }
         } else {
@@ -493,7 +540,14 @@
             <p style="margin-top:8px;">Coordinata <strong>${inputCoord}</strong> non trovata.</p>
           `;
         }
-      }, 1500);
+      };
+
+      if (videoElement) {
+        videoElement.onended = mostraRisultato;
+        setTimeout(mostraRisultato, 4000); 
+      } else {
+        setTimeout(mostraRisultato, 2500);
+      }
     }
 
     function avviaEventoHacking() {
