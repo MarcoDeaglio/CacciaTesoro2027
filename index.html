@@ -201,7 +201,7 @@
       background: #000;
       border: 1px solid var(--border-color);
       padding: 16px;
-      max-height: 400px;
+      max-height: 420px;
       overflow-y: auto;
       border-radius: 6px;
       font-size: 1.15rem;
@@ -281,27 +281,28 @@
       z-index: 2;
     }
 
-    /* CHAT IA MOBILE */
+    /* CHAT IA MOBILE OTTIMIZZATA PER EVITARE TAGLI */
     .chat-container {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
+      padding-bottom: 10px;
     }
 
     .chat-history {
       background: #000;
       border: 2px solid var(--alert-color);
-      padding: 14px;
-      height: 260px;
+      padding: 12px;
+      max-height: 220px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
       border-radius: 6px;
     }
 
     .chat-msg {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       line-height: 1.4;
       display: flex;
       gap: 8px;
@@ -311,7 +312,7 @@
 
     .chat-msg-tag {
       font-weight: bold;
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       white-space: nowrap;
     }
 
@@ -330,7 +331,7 @@
     .chat-options {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
     .chat-btn {
@@ -338,8 +339,8 @@
       border: 2px solid var(--alert-color);
       color: var(--alert-color);
       text-align: left;
-      padding: 14px;
-      font-size: 1.05rem;
+      padding: 12px;
+      font-size: 1rem;
       border-radius: 6px;
       line-height: 1.35;
       font-family: var(--font-family);
@@ -355,8 +356,8 @@
       background: var(--text-color) !important;
       color: #000 !important;
       border: none !important;
-      margin-top: 8px;
-      font-size: 1.15rem !important;
+      margin-top: 4px;
+      font-size: 1.1rem !important;
     }
 
     .logout-btn {
@@ -450,7 +451,7 @@
         "N45-E09": {
           tipo: "TEXT",
           luogo: "Campo da Calcio",
-          immagine: "CacciaTesoro2027/CacciaTesoro2027/Immagini/campo_calcio.jpg"
+          immagine: "Immagini/campo_calcio.jpg"
         },
         "N99-E99": {
           tipo: "cmd_atto_1",
