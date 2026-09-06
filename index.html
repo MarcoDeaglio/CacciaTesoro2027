@@ -242,6 +242,65 @@
       padding-bottom: 6px;
     }
 
+    /* STILI CRUCIVERBA */
+    .crossword-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 2px;
+      background: var(--border-color);
+      border: 2px solid var(--text-color);
+      margin: 12px 0;
+      padding: 2px;
+    }
+
+    .cw-cell {
+      background: #000;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: var(--text-color);
+      font-weight: bold;
+    }
+
+    .cw-cell.blocked {
+      background: repeating-linear-gradient(
+        45deg,
+        #111,
+        #111 4px,
+        #333 4px,
+        #333 8px
+      );
+    }
+
+    .clue-section {
+      margin-top: 10px;
+      font-size: 0.85rem;
+    }
+
+    .clue-title {
+      color: var(--accent-color);
+      font-weight: bold;
+      margin-bottom: 4px;
+      border-bottom: 1px dashed var(--border-color);
+      padding-bottom: 2px;
+    }
+
+    .clue-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+
+    .clue-box {
+      border: 1px solid var(--text-color);
+      padding: 2px 5px;
+      font-size: 0.8rem;
+      background: rgba(0, 255, 102, 0.05);
+    }
+
     /* VIDEO DI RINTRACCIAMENTO */
     .scan-video-container {
       display: flex;
@@ -271,7 +330,7 @@
 
     @keyframes blink { from { opacity: 0.3; } to { opacity: 1; } }
 
-    /* CONTENITORE IMMAGINE PERFETTAMENTE PROPORZIONATO */
+    /* CONTENITORE IMMAGINE LABIRINTO/MAPPA (STILE APP) */
     .map-image-container {
       margin-top: 14px;
       position: relative;
@@ -280,10 +339,11 @@
       overflow: hidden;
       background: #000;
       width: 100%;
-      height: 220px;
+      height: 260px;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 5px;
     }
 
     .map-image {
@@ -306,13 +366,6 @@
       font-weight: bold;
       letter-spacing: 1px;
       z-index: 2;
-    }
-
-    /* NUOVA HOME AIUTO / 27 ENIGMI */
-    .help-panel-home {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
     }
 
     .enigmi-grid-scroll {
@@ -342,7 +395,6 @@
       color: #000;
     }
 
-    /* GRIGLIA PULSANTI DINOSAURI */
     .dino-grid {
       display: flex;
       flex-direction: column;
@@ -373,6 +425,137 @@
       color: #fff !important;
       border: none !important;
       margin-top: 12px;
+    }
+
+    /* STILI CALCOLATRICE DINOSAURI CON AUTO-ADATTAMENTO IMMAGINI */
+    .dino-calc-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .dino-screen-label {
+      font-size: 0.8rem;
+      color: var(--accent-color);
+      margin-bottom: -4px;
+    }
+
+    .dino-screen {
+      width: 100%;
+      padding: 10px;
+      background: #000;
+      border: 1px solid var(--text-color);
+      color: var(--text-color);
+      font-family: var(--font-family);
+      font-size: 1.1rem;
+      border-radius: 4px;
+      min-height: 58px;
+      word-break: break-all;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    /* Miniatura auto-adattata nell'input */
+    .dino-screen img.calc-mini-img {
+      width: 36px;
+      height: 36px;
+      max-width: 100%;
+      object-fit: contain;
+      border-radius: 3px;
+      border: 1px solid var(--text-color);
+      background: #000;
+      vertical-align: middle;
+    }
+
+    .dino-output-screen {
+      width: 100%;
+      padding: 12px;
+      background: #000;
+      border: 2px solid var(--accent-color);
+      color: var(--accent-color);
+      font-family: var(--font-family);
+      font-size: 1.1rem;
+      border-radius: 6px;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .dino-calc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .dino-calc-btn {
+      background: rgba(255, 215, 0, 0.08);
+      border: 1px solid var(--text-color);
+      color: var(--text-color);
+      padding: 6px;
+      font-size: 0.7rem;
+      font-family: var(--font-family);
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+
+    /* Immagine auto-adattata sul pulsante */
+    .dino-calc-btn img.calc-btn-img {
+      width: 42px;
+      height: 42px;
+      max-width: 100%;
+      object-fit: contain;
+      border-radius: 4px;
+      border: 1px solid var(--text-color);
+      background: #000;
+    }
+
+    .dino-calc-btn:active {
+      background: var(--text-color);
+      color: #000;
+    }
+
+    .dino-operators-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+
+    .dino-op-btn {
+      background: rgba(0, 191, 255, 0.1);
+      border: 1px solid var(--accent-color);
+      color: var(--accent-color);
+      padding: 10px;
+      font-size: 1.1rem;
+      font-family: var(--font-family);
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .dino-op-btn:active {
+      background: var(--accent-color);
+      color: #000;
+    }
+
+    .dino-calc-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dino-calc-actions button {
+      flex: 1;
+      padding: 10px;
+      font-size: 0.85rem;
     }
 
     /* CHAT IA MOBILE */
@@ -589,7 +772,7 @@
       };
     }
 
-    /* DATABASE DEI DINOSAURI */
+    /* DATABASE DEI DINOSAURI (SCHEDE CLASSICHE) */
     const DATABASE_DINOSAURI = {
       "t-rex": {
         nome: "Tyrannosaurus Rex",
@@ -616,6 +799,19 @@
         immagine: "Immagini/brachiosaurus.jfif"
       }
     };
+
+    /* 9 DINOSAURI ASSOCIATI A VALORI DA 1 A 9 CON NOMI E IMMAGINI DEDICATE */
+    const LISTA_DINOSAURI_CALC = [
+      { id: 1, nome: "T-Rex", valore: 1, immagine: "Immagini/dino1.png" },
+      { id: 2, nome: "Raptor", valore: 2, immagine: "Immagini/dino2.png" },
+      { id: 3, nome: "Triceratops", valore: 3, immagine: "Immagini/dino3.png" },
+      { id: 4, nome: "Brachiosaurus", valore: 4, immagine: "Immagini/dino4.png" },
+      { id: 5, nome: "Pterodattilo", valore: 5, immagine: "Immagini/dino5.png" },
+      { id: 6, nome: "Spinosaurus", valore: 6, immagine: "Immagini/dino6.png" },
+      { id: 7, nome: "Stegosaurus", valore: 7, immagine: "Immagini/dino7.png" },
+      { id: 8, nome: "Ankylosaurus", valore: 8, immagine: "Immagini/dino8.png" },
+      { id: 9, nome: "Velociraptor", valore: 9, immagine: "Immagini/dino9.png" }
+    ];
 
     const IA_atto_1 = {
       "start": {
@@ -727,7 +923,7 @@
 
       if (inserita.trim() === enigma.password) {
         if (numero === 1) {
-          mostraSchedaEnigma1();
+          mostraMenuEnigma1();
         } else {
           mostraSchedaEnigmaGenerica(numero);
         }
@@ -736,21 +932,150 @@
       }
     }
 
-    /* SCHEDA SPECIFICA PER L'ENIGMA 1 CON I 3 PULSANTI PDF */
-    function mostraSchedaEnigma1() {
+    /* MENU DEDICATO PER L'ENIGMA 1 CON I 3 PULSANTI */
+    function mostraMenuEnigma1() {
       const helpContent = document.getElementById('help-content');
 
       helpContent.innerHTML = `
-        <p style="color:var(--text-color); font-weight:bold; margin-bottom:10px;">[ACCESSO RIUSCITO - ENIGMA #1]</p>
-        <p style="margin-bottom:12px; font-size:0.95rem;">Seleziona la documentazione PDF desiderata:</p>
+        <p style="color:var(--text-color); font-weight:bold; margin-bottom:10px;">[ENIGMA #1 - SELEZIONE MODULO]</p>
+        <p style="font-size: 0.9rem; margin-bottom: 14px; color: #ccc;">Seleziona la tipologia di enigma desiderata:</p>
         
         <div style="display: flex; flex-direction: column; gap: 10px;">
-          <button class="dino-btn" style="text-align:center;" onclick="apriPdf('Soluzioni/Grandi01.pdf')">> ENIGMA GRANDI</button>
-          <button class="dino-btn" style="text-align:center;" onclick="apriPdf('Soluzioni/Piccoli01.pdf')">> ENIGMA PICCOLI</button>
-          <button class="dino-btn" style="text-align:center;" onclick="apriPdf('Soluzioni/Finale01.pdf')">> ENIGMA FINALE</button>
+          <button class="dino-btn" style="text-align:center;" onclick="mostraSchedaEnigma1Grandi()">> Enigma grandi</button>
+          <button class="dino-btn" style="text-align:center;" onclick="mostraSchedaEnigma1Piccoli()">> Enigma piccoli</button>
+          <button class="dino-btn" style="text-align:center;" onclick="mostraSchedaEnigma1Finale()">> Enigma finale</button>
         </div>
 
         <button class="dino-btn back-dino-btn" style="margin-top:16px; text-align:center;" onclick="mostraGrigliaEnigmi()">< TORNA ALLA LISTA ENIGMI</button>
+      `;
+    }
+
+    /* SCHEDA SPECIFICA PER L'ENIGMA 1 (GRANDI) */
+    function mostraSchedaEnigma1Grandi() {
+      const helpContent = document.getElementById('help-content');
+
+      helpContent.innerHTML = `
+        <p style="color:var(--text-color); font-weight:bold; margin-bottom:6px;">[IND_001 - ENIGMA GRANDI]</p>
+        <p style="font-size: 0.85rem; line-height: 1.35; margin-bottom: 8px; color: #ccc;">
+          Semplice cruciverba dove si deve capire dove vanno ogni numero, le celle con il motivo a linee nere non bisogna scrivere niente sopra. Suggerimento: iniziate dai due da 8 quadretti.
+        </p>
+
+        <!-- Schema Cruciverba Grafico (8x8) VUOTO -->
+        <div class="crossword-grid">
+          <div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell blocked"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div>
+          <div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell blocked"></div><div class="cw-cell"></div><div class="cw-cell"></div>
+          <div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div>
+          <div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell blocked"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell blocked"></div>
+          <div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell blocked"></div><div class="cw-cell blocked"></div><div class="cw-cell"></div><div class="cw-cell blocked"></div><div class="cw-cell"></div>
+          <div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell blocked"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div>
+          <div class="cw-cell"></div><div class="cw-cell blocked"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div>
+          <div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell blocked"></div><div class="cw-cell"></div><div class="cw-cell"></div><div class="cw-cell"></div>
+        </div>
+
+        <!-- Numeri da posizionare -->
+        <div class="clue-section">
+          <div class="clue-title">ORIZZONTALI (NUMERI DA INSERIRE)</div>
+          <div class="clue-row">
+            <span class="clue-box">186</span>
+            <span class="clue-box">542</span>
+            <span class="clue-box">27543</span>
+            <span class="clue-box">72147598</span>
+          </div>
+          <div class="clue-row">
+            <span class="clue-box">736</span>
+            <span class="clue-box">915</span>
+            <span class="clue-box">548127</span>
+            <span class="clue-box">7638</span>
+            <span class="clue-box">1341</span>
+          </div>
+          <div class="clue-row">
+            <span class="clue-box">1926</span>
+            <span class="clue-box">2265</span>
+          </div>
+        </div>
+
+        <div class="clue-section" style="margin-top: 8px;">
+          <div class="clue-title">VERTICALI (NUMERI DA INSERIRE)</div>
+          <div class="clue-row">
+            <span class="clue-box">442</span>
+            <span class="clue-box">651</span>
+            <span class="clue-box">648</span>
+            <span class="clue-box">2453</span>
+            <span class="clue-box">2595</span>
+            <span class="clue-box">9675</span>
+            <span class="clue-box">872643</span>
+            <span class="clue-box">56371987</span>
+            <span class="clue-box">12735187</span>
+            <span class="clue-box">143</span>
+            <span class="clue-box">321</span>
+            <span class="clue-box">1372</span>
+          </div>
+        </div>
+
+        <!-- SEZIONE SOLUZIONE -->
+        <div style="margin-top: 18px; border-top: 2px dashed var(--accent-color); padding-top: 10px;">
+          <p style="color: var(--accent-color); font-weight: bold; margin-bottom: 6px;">[SEZIONE SOLUZIONE]</p>
+          
+          <div class="crossword-grid">
+            <div class="cw-cell">1</div><div class="cw-cell">8</div><div class="cw-cell">6</div><div class="cw-cell blocked"></div><div class="cw-cell">1</div><div class="cw-cell">9</div><div class="cw-cell">2</div><div class="cw-cell">6</div>
+            <div class="cw-cell">2</div><div class="cw-cell">7</div><div class="cw-cell">5</div><div class="cw-cell">4</div><div class="cw-cell">3</div><div class="cw-cell blocked"></div><div class="cw-cell">5</div><div class="cw-cell">4</div>
+            <div class="cw-cell">7</div><div class="cw-cell">2</div><div class="cw-cell">1</div><div class="cw-cell">4</div><div class="cw-cell">7</div><div class="cw-cell">5</div><div class="cw-cell">9</div><div class="cw-cell">8</div>
+            <div class="cw-cell">3</div><div class="cw-cell">6</div><div class="cw-cell blocked"></div><div class="cw-cell">2</div><div class="cw-cell">2</div><div class="cw-cell">6</div><div class="cw-cell">5</div><div class="cw-cell blocked"></div>
+            <div class="cw-cell">5</div><div class="cw-cell">4</div><div class="cw-cell">2</div><div class="cw-cell blocked"></div><div class="cw-cell blocked"></div><div class="cw-cell">3</div><div class="cw-cell blocked"></div><div class="cw-cell">9</div>
+            <div class="cw-cell">1</div><div class="cw-cell">3</div><div class="cw-cell">4</div><div class="cw-cell">1</div><div class="cw-cell blocked"></div><div class="cw-cell">7</div><div class="cw-cell">3</div><div class="cw-cell">6</div>
+            <div class="cw-cell">8</div><div class="cw-cell blocked"></div><div class="cw-cell">5</div><div class="cw-cell">4</div><div class="cw-cell">8</div><div class="cw-cell">1</div><div class="cw-cell">2</div><div class="cw-cell">7</div>
+            <div class="cw-cell">7</div><div class="cw-cell">6</div><div class="cw-cell">3</div><div class="cw-cell">8</div><div class="cw-cell blocked"></div><div class="cw-cell">9</div><div class="cw-cell">1</div><div class="cw-cell">5</div>
+          </div>
+        </div>
+
+        <button class="dino-btn back-dino-btn" style="margin-top:14px; text-align:center;" onclick="mostraMenuEnigma1()">< TORNA AL MENU ENIGMA 1</button>
+      `;
+    }
+
+    /* SCHEDA SPECIFICA PER L'ENIGMA 1 (PICCOLI) - LABIRINTO E SOLUZIONE SOTTO */
+    function mostraSchedaEnigma1Piccoli() {
+      const helpContent = document.getElementById('help-content');
+
+      helpContent.innerHTML = `
+        <p style="color:var(--text-color); font-weight:bold; margin-bottom:6px;">[IND_001 - ENIGMA PICCOLI]</p>
+        <p style="font-size: 0.85rem; line-height: 1.35; margin-bottom: 8px; color: #ccc;">
+          Analizza il tracciato e trova la via d'uscita dall'INIZIO alla FINE.
+        </p>
+
+        <!-- Contenitore immagine Labirinto -->
+        <div class="map-image-container">
+          <img src="Immagini/labirinto.png" alt="Labirinto Enigma Piccoli" class="map-image" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%23000\'/><text x=\'50%\' y=\'50%\' fill=\'%2300ff66\' font-family=\'monospace\' font-size=\'14\' text-anchor=\'middle\' dominant-baseline=\'middle\'>LABIRINTO.PNG</text></svg>'">
+        </div>
+
+        <!-- SEZIONE SOLUZIONE (Immagine Soluzione Sotto) -->
+        <div style="margin-top: 18px; border-top: 2px dashed var(--accent-color); padding-top: 10px;">
+          <p style="color: var(--accent-color); font-weight: bold; margin-bottom: 6px;">[SEZIONE SOLUZIONE]</p>
+          
+          <div class="map-image-container">
+            <img src="Immagini/soluzione_labirinto.png" alt="Soluzione Labirinto" class="map-image" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%23000\'/><text x=\'50%\' y=\'50%\' fill=\'%2300bfff\' font-family=\'monospace\' font-size=\'14\' text-anchor=\'middle\' dominant-baseline=\'middle\'>SOLUZIONE_LABIRINTO.PNG</text></svg>'">
+          </div>
+        </div>
+
+        <button class="dino-btn back-dino-btn" style="margin-top:14px; text-align:center;" onclick="mostraMenuEnigma1()">< TORNA AL MENU ENIGMA 1</button>
+      `;
+    }
+
+    /* SCHEDA SPECIFICA PER L'ENIGMA 1 (FINALE) */
+    function mostraSchedaEnigma1Finale() {
+      const helpContent = document.getElementById('help-content');
+
+      helpContent.innerHTML = `
+        <p style="color:var(--text-color); font-weight:bold; margin-bottom:6px;">[IND_001 - ENIGMA FINALE]</p>
+        <p style="font-size: 0.85rem; line-height: 1.35; margin-bottom: 8px; color: #ccc;">
+          Una volta risolto l'enigma dei grandi e dei piccoli, dovete immaginarvi di mettere in sovraimpressione l'enigma dei piccoli e grazie ai quadrati verdi potete trovare la soluzione. L'ordine sta al percorso.
+        </p>
+
+        <!-- Contenitore immagine Soluzione Finale -->
+        <div class="map-image-container">
+        <img src="Immagini/soluzione_finale.png" alt="Soluzione Finale" class="map-image" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\'><rect width=\'100%\' height=\'100%\' fill=\'%23000\'/><text x=\'50%\' y=\'50%\' fill=\'%23ffd700\' font-size=\'14\' text-anchor=\'middle\' dominant-baseline=\'middle\'>SOLUZIONE_FINALE.PNG</text></svg>'">
+        </div>
+
+        <button class="dino-btn back-dino-btn" style="margin-top:14px; text-align:center;" onclick="mostraMenuEnigma1()">< TORNA AL MENU ENIGMA 1</button>
       `;
     }
 
@@ -765,10 +1090,6 @@
         <p style="margin-top:6px;">> <strong>Indizio:</strong> ${enigma.indizio}</p>
         <button class="dino-btn" style="margin-top:14px; text-align:center;" onclick="mostraGrigliaEnigmi()">< TORNA ALLA LISTA ENIGMI</button>
       `;
-    }
-
-    function apriPdf(percorsoPdf) {
-      window.open(percorsoPdf, '_blank');
     }
 
     function chiudiAiutoHome() {
@@ -854,7 +1175,7 @@
       }
     }
 
-    /* GESTIONE EVENTO DINO (JURASSIC PARK) */
+    /* GESTIONE EVENTO DINO (HOME DINOSAURI CON OPZIONE CALCOLATRICE) */
     function avviaEventoDino() {
       document.body.classList.add('dino-mode');
       document.getElementById('sys-title').textContent = "JURASSIC PARK DB";
@@ -868,8 +1189,9 @@
     function mostraHomeDinosauri() {
       const resultContent = document.getElementById('result-content');
       resultContent.innerHTML = `
-        <p style="color:var(--accent-color); font-weight:bold; margin-bottom:10px;">Seleziona un esemplare:</p>
+        <p style="color:var(--accent-color); font-weight:bold; margin-bottom:10px;">Seleziona un'opzione:</p>
         <div class="dino-grid">
+          <button class="dino-btn" style="background: rgba(255,140,0,0.2); border-color: var(--accent-color); color: var(--accent-color);" onclick="mostraCalcolatriceDinosauri()">🧮 Calcolatrice Biometrica</button>
           <button class="dino-btn" onclick="apriSchedaDino('t-rex')">> 1. Tyrannosaurus Rex</button>
           <button class="dino-btn" onclick="apriSchedaDino('velociraptor')">> 2. Velociraptor</button>
           <button class="dino-btn" onclick="apriSchedaDino('triceratops')">> 3. Triceratops</button>
@@ -877,6 +1199,111 @@
         </div>
         <button class="dino-btn back-dino-btn" onclick="esciDaDinoMode()">TORNA AL DB FEDERALE</button>
       `;
+    }
+
+    function mostraCalcolatriceDinosauri() {
+      const resultContent = document.getElementById('result-content');
+      
+      let gridButtons = '';
+      LISTA_DINOSAURI_CALC.forEach(dino => {
+        gridButtons += `
+          <button class="dino-calc-btn" onclick="aggiungiValoreDino(${dino.valore}, '${dino.immagine}', '${dino.nome}')">
+            <img src="${dino.immagine}" alt="${dino.nome}" class="calc-btn-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\'><rect width=\'100%\' height=\'100%\' fill=\'%23000\'/><text x=\'50%\' y=\'50%\' fill=\'%23ffd700\' font-size=\'10\' text-anchor=\'middle\' dominant-baseline=\'middle\'>${dino.valore}</text></svg>'">
+            <span>${dino.nome}</span>
+          </button>
+        `;
+      });
+
+      resultContent.innerHTML = `
+        <p style="color:var(--accent-color); font-weight:bold; margin-bottom:6px;">[CALCOLATRICE BIOMETRICA]</p>
+        <div class="dino-calc-container">
+          <div class="dino-screen-label">INPUT SEQUENZA:</div>
+          <div class="dino-screen" id="dino-input-screen" data-raw="">Inserisci sequenza...</div>
+          
+          <div class="dino-calc-grid">
+            ${gridButtons}
+          </div>
+
+          <div class="dino-operators-grid">
+            <button class="dino-op-btn" onclick="aggiungiOperatoreInput('+')">+</button>
+            <button class="dino-op-btn" onclick="aggiungiOperatoreInput('-')">-</button>
+            <button class="dino-op-btn" onclick="aggiungiOperatoreInput('*')">*</button>
+            <button class="dino-op-btn" onclick="aggiungiOperatoreInput('/')">/</button>
+          </div>
+
+          <div class="dino-screen-label">OUTPUT / RISULTATO:</div>
+          <div class="dino-output-screen" id="dino-output-screen">---</div>
+
+          <div class="dino-calc-actions">
+            <button class="dino-btn" style="text-align:center;" onclick="cancellaDinoInput()">CANCELLA</button>
+            <button class="dino-btn" style="text-align:center; background:var(--accent-color); color:#000;" onclick="inviaDinoInput()">ELABORA</button>
+          </div>
+        </div>
+        <button class="dino-btn back-dino-btn" style="margin-top:10px;" onclick="mostraHomeDinosauri()">< INDIETRO AL MENU DINOSAURI</button>
+      `;
+    }
+
+    function aggiungiValoreDino(valore, percorsoImmagine, nomeDino) {
+      const screen = document.getElementById('dino-input-screen');
+      let rawVal = screen.getAttribute('data-raw') || "";
+
+      const itemHtml = `<img src="${percorsoImmagine}" alt="${nomeDino}" class="calc-mini-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'36\' height=\'36\'><rect width=\'100%\' height=\'100%\' fill=\'%23000\'/><text x=\'50%\' y=\'50%\' fill=\'%23ffd700\' font-size=\'10\' text-anchor=\'middle\' dominant-baseline=\'middle\'>${valore}</text></svg>'">`;
+
+      if (screen.textContent === "Inserisci sequenza...") {
+        screen.innerHTML = itemHtml;
+        screen.setAttribute('data-raw', valore);
+      } else {
+        screen.innerHTML += " " + itemHtml;
+        screen.setAttribute('data-raw', rawVal + valore);
+      }
+    }
+
+    function aggiungiOperatoreInput(op) {
+      const screen = document.getElementById('dino-input-screen');
+      let rawVal = screen.getAttribute('data-raw') || "";
+
+      const opHtml = `<span style="font-size: 1.3rem; font-weight: bold; color: var(--accent-color); padding: 0 4px;">${op}</span>`;
+
+      if (screen.textContent === "Inserisci sequenza...") {
+        screen.innerHTML = opHtml;
+        screen.setAttribute('data-raw', op);
+      } else {
+        screen.innerHTML += " " + opHtml + " ";
+        screen.setAttribute('data-raw', rawVal + op);
+      }
+    }
+
+    function cancellaDinoInput() {
+      const screen = document.getElementById('dino-input-screen');
+      screen.textContent = "Inserisci sequenza...";
+      screen.setAttribute('data-raw', "");
+      document.getElementById('dino-output-screen').textContent = "---";
+    }
+
+    function inviaDinoInput() {
+      const screen = document.getElementById('dino-input-screen');
+      const outputScreen = document.getElementById('dino-output-screen');
+      let rawVal = screen.getAttribute('data-raw');
+      
+      if (!rawVal || rawVal.trim() === "") {
+        alert("Inserire una sequenza valida!");
+        return;
+      }
+
+      // CONTROLLO: Verifica che l'espressione contenga almeno un operatore (+, -, *, /)
+      const contieneOperatore = /[+\-*/]/.test(rawVal);
+      if (!contieneOperatore) {
+        alert("Errore: Non puoi inviare un solo dato! Inserisci almeno un'operazione tra i dinosauri.");
+        return;
+      }
+      
+      try {
+        // Valuta l'espressione matematica basata sui numeri dei dinosauri
+        let risultato = eval(rawVal);
+        outputScreen.textContent = risultato;
+      } catch (e) {
+        outputScreen.textContent = "ERRORE SINTASSI";
+      }
     }
 
     function apriSchedaDino(chiave) {
