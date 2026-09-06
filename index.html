@@ -110,8 +110,8 @@
 
     /* STILE LOGO FEDERALE PICCOLO (DASHBOARD) */
     .logo-small {
-      width: 36px;
-      height: 36px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid var(--accent-color);
@@ -176,7 +176,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       margin-bottom: 18px;
       border-bottom: 1px dashed var(--border-color);
       padding-bottom: 10px;
@@ -185,7 +185,31 @@
     .status-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
+    }
+
+    .status-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* PULSANTE AIUTO IN ALTO A SINISTRA */
+    .help-btn {
+      background: transparent;
+      color: var(--accent-color);
+      border: 1px solid var(--accent-color);
+      padding: 5px 8px;
+      font-size: 0.85rem;
+      border-radius: 4px;
+      font-family: var(--font-family);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .help-btn:active {
+      background: var(--accent-color);
+      color: #000;
     }
 
     .search-section label {
@@ -282,6 +306,40 @@
       font-weight: bold;
       letter-spacing: 1px;
       z-index: 2;
+    }
+
+    /* NUOVA HOME AIUTO / ENIGMI (A TUTTO SCHERMO NEL CONTAINER) */
+    .help-panel-home {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .enigmi-grid-scroll {
+      max-height: 340px;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding-right: 4px;
+    }
+
+    .enigma-btn {
+      background: rgba(0, 191, 255, 0.1);
+      border: 1px solid var(--accent-color);
+      color: var(--accent-color);
+      padding: 12px 0;
+      font-size: 1rem;
+      font-family: var(--font-family);
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .enigma-btn:active {
+      background: var(--accent-color);
+      color: #000;
     }
 
     /* GRIGLIA PULSANTI DINOSAURI */
@@ -401,9 +459,10 @@
       color: var(--alert-color);
       border: 1px solid var(--alert-color);
       width: auto;
-      padding: 6px 12px;
-      font-size: 0.95rem;
+      padding: 5px 10px;
+      font-size: 0.85rem;
       border-radius: 4px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -439,25 +498,44 @@
     <div id="dashboard-panel" class="hidden">
       <div class="status-bar">
         <div class="status-left">
+          <button class="help-btn" onclick="apriAiutoHome()">AIUTO</button>
           <img src="Immagini/logo.png" alt="Logo Federale" class="logo-small" onerror="this.style.display='none'">
-          <span>SQUADRA: <strong id="user-display" style="color:var(--accent-color)">-</strong></span>
         </div>
-        <button class="logout-btn" onclick="logout()">LOGOUT</button>
+        <div class="status-right">
+          <span style="font-size: 0.95rem;"><strong id="user-display" style="color:var(--accent-color)">-</strong></span>
+          <button class="logout-btn" onclick="logout()">LOGOUT</button>
+        </div>
       </div>
 
       <div class="search-section" id="search-section">
         <label for="coord-search">INSERISCI COORDINATA:</label>
         <div class="search-box">
-          <input type="text" id="coord-search" placeholder="Es: N45-E09" autocomplete="off">
+          <input type="text" id="coord-search" placeholder="Es: 714-652-398" maxlength="11" autocomplete="off">
           <button id="btn-search" onclick="ricercaCoordinata()">CERCA</button>
         </div>
       </div>
 
-      <div class="result-box">
+      <div class="result-box" id="main-result-box">
         <div class="result-title" id="result-title">RISULTATO:</div>
         <div id="result-content">In attesa di input...</div>
       </div>
     </div>
+
+    <!-- NUOVA HOME SEZIONE AIUTO / 27 ENIGMI -->
+    <div id="help-panel" class="hidden">
+      <div class="status-bar">
+        <span style="color: var(--accent-color); font-weight: bold;">ARCHIVIO ENIGMI (27)</span>
+        <button class="logout-btn" onclick="chiudiAiutoHome()">TORNA AL DB</button>
+      </div>
+
+      <div class="result-box">
+        <div class="result-title">SELEZIONA ENIGMA:</div>
+        <div id="help-content">
+          <!-- Generato via JavaScript -->
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script>
@@ -469,7 +547,7 @@
 
     const DATABASE_COORDINATE = {
       "Marco": {
-        "DINO-999": {
+        "714-652-999": {
           tipo: "cmd_dino"
         },
         "714-652-398": {
@@ -478,22 +556,22 @@
           immagine: "Immagini/basket.png",
           sbloccato: false
         },
-        "1": {
+        "123-456-789": {
           tipo: "cmd_atto_1",
           luogo: "Settore Segreto: Laboratorio Sotterraneo",
           sbloccato: false
         }
       },
       "squadra2": {
-        "DINO-999": {
+        "714-652-999": {
           tipo: "cmd_dino"
         },
-        "N45-E09": {
+        "123-456-789": {
           tipo: "TEXT",
           luogo: "Campo da Calcio",
           immagine: "Immagini/campo_calcio.jpg"
         },
-        "N99-E99": {
+        "999-888-777": {
           tipo: "cmd_atto_1",
           luogo: "Settore Segreto: Antenna di Trasmissione",
           sbloccato: false
@@ -501,31 +579,42 @@
       }
     };
 
-    /* DATABASE DEI DINOSAURI (CON IL BRACHIOSAURUS DAL COLLO LUNGO) */
+    /* DATABASE DEI 27 ENIGMI CON PASSWORD SPECIFICA */
+    const DATABASE_ENIGMI = {};
+    for (let i = 1; i <= 27; i++) {
+      DATABASE_ENIGMI[i] = {
+        password: "key" + i, // Puoi cambiare le password qui (es. "key1", "key2", ecc.)
+        titolo: "Enigma N° " + i,
+        indizio: "Questo è l'indizio riservato per superare l'enigma numero " + i + ". Analizzate bene la zona.",
+        immagine: "" 
+      };
+    }
+
+    /* DATABASE DEI DINOSAURI */
     const DATABASE_DINOSAURI = {
       "t-rex": {
         nome: "Tyrannosaurus Rex",
         pericolo: "Estremo - Cacciatore Alpha",
         descrizione: "Il predatore dominante del Cretaceo. Dotato di un morso devastante e vista basata sul movimento.",
-        immagine: "Immagini/trex.jfif"
+        immagine: "Immagini/trex.png"
       },
       "velociraptor": {
         nome: "Velociraptor",
         pericolo: "Alto - Intelligente e Letale in branco",
         descrizione: "Piccolo ma estremamente astuto, caccia in coordinazione con i suoi simili.",
-        immagine: "Immagini/raptor.jfif"
+        immagine: "Immagini/raptor.png"
       },
       "triceratops": {
         nome: "Triceratops",
         pericolo: "Medio - Erbivoro Territoriale",
         descrizione: "Provvisto di tre corna e uno scudo osseo massiccio. Può caricare se provocato.",
-        immagine: "Immagini/triceratops.jfif"
+        immagine: "Immagini/triceratops.png"
       },
       "brachiosaurus": {
         nome: "Brachiosaurus (Collo Lungo)",
         pericolo: "Basso - Enorme Erbivoro Pacifico",
         descrizione: "Uno dei più grandi animali mai vissuti sulla Terra, capace di raggiungere le cime degli alberi più alti con il suo lunghissimo collo.",
-        immagine: "Immagini/brachiosaurus.jfif"
+        immagine: "Immagini/brachiosaurus.png"
       }
     };
 
@@ -569,6 +658,25 @@
     let squadraAutenticata = null;
     let coordinataCorrenteHacking = null;
 
+    /* SCRIPT AUTOMATICO PER INSERIRE I TRATTINI NELLE COORDINATE (XXX-XXX-XXX) */
+    const coordInput = document.getElementById('coord-search');
+    coordInput.addEventListener('input', function (e) {
+      let val = this.value.replace(/[^0-9A-Za-z]/g, '').toUpperCase();
+      let formatted = '';
+      
+      if (val.length > 0) {
+        formatted += val.substring(0, 3);
+      }
+      if (val.length > 3) {
+        formatted += '-' + val.substring(3, 6);
+      }
+      if (val.length > 6) {
+        formatted += '-' + val.substring(6, 9);
+      }
+      
+      this.value = formatted;
+    });
+
     document.getElementById('login-form').addEventListener('submit', function(e) {
       e.preventDefault();
       const user = document.getElementById('username').value.trim();
@@ -585,10 +693,72 @@
 
     function mostraDashboard() {
       document.getElementById('login-panel').classList.add('hidden');
+      document.getElementById('help-panel').classList.add('hidden');
       document.getElementById('dashboard-panel').classList.remove('hidden');
       document.getElementById('user-display').textContent = squadraAutenticata.toUpperCase();
       document.getElementById('coord-search').value = '';
       document.getElementById('result-content').innerHTML = "In attesa di input...";
+    }
+
+    /* GESTIONE NUOVA HOME AIUTO / 27 ENIGMI */
+    function apriAiutoHome() {
+      document.getElementById('dashboard-panel').classList.add('hidden');
+      document.getElementById('help-panel').classList.remove('hidden');
+      mostraGrigliaEnigmi();
+    }
+
+    function mostraGrigliaEnigmi() {
+      const helpContent = document.getElementById('help-content');
+      let gridHtml = '<p style="color:var(--accent-color); font-size:0.95rem; margin-bottom:10px;">Inserisci la password per accedere al rispettivo enigma:</p>';
+      gridHtml += '<div class="enigmi-grid-scroll">';
+      
+      for (let i = 1; i <= 27; i++) {
+        gridHtml += `<button class="enigma-btn" onclick="verificaPasswordEnigma(${i})">#${i}</button>`;
+      }
+      gridHtml += '</div>';
+
+      helpContent.innerHTML = gridHtml;
+    }
+
+    function verificaPasswordEnigma(numero) {
+      const enigma = DATABASE_ENIGMI[numero];
+      const inserita = prompt(`Inserisci la password per sbloccare l'Enigma #${numero}:`);
+
+      if (inserita === null) return;
+
+      if (inserita.trim() === enigma.password) {
+        mostraSchedaEnigmaHome(numero);
+      } else {
+        alert("Password errata! Accesso negato.");
+      }
+    }
+
+    function mostraSchedaEnigmaHome(numero) {
+      const enigma = DATABASE_ENIGMI[numero];
+      const helpContent = document.getElementById('help-content');
+
+      let htmlImmagine = "";
+      if (enigma.immagine) {
+        htmlImmagine = `
+          <div class="map-image-container">
+            <div class="map-overlay-tag">ACCESSO CONSENTITO</div>
+            <img src="${enigma.immagine}" alt="Indizio Enigma" class="map-image">
+          </div>
+        `;
+      }
+
+      helpContent.innerHTML = `
+        <p style="color:var(--text-color); font-weight:bold; margin-bottom:6px;">[ACCESSO RIUSCITO - ENIGMA #${numero}]</p>
+        <p style="margin-top:6px;">> <strong>Titolo:</strong> ${enigma.titolo}</p>
+        <p style="margin-top:6px;">> <strong>Indizio:</strong> ${enigma.indizio}</p>
+        ${htmlImmagine}
+        <button class="dino-btn" style="margin-top:14px; text-align:center;" onclick="mostraGrigliaEnigmi()">< TORNA ALLA LISTA ENIGMI</button>
+      `;
+    }
+
+    function chiudiAiutoHome() {
+      document.getElementById('help-panel').classList.add('hidden');
+      document.getElementById('dashboard-panel').classList.remove('hidden');
     }
 
     function ricercaCoordinata() {
@@ -832,7 +1002,7 @@
       coordinataCorrenteHacking = null;
     }
 
-    document.getElementById('coord-search').addEventListener('keypress', function(e) {
+    coordInput.addEventListener('keypress', function(e) {
       if (e.key === 'Enter') ricercaCoordinata();
     });
 
@@ -848,6 +1018,7 @@
       document.getElementById('username').value = '';
       document.getElementById('password').value = '';
       document.getElementById('dashboard-panel').classList.add('hidden');
+      document.getElementById('help-panel').classList.add('hidden');
       document.getElementById('login-panel').classList.remove('hidden');
     }
   </script>
