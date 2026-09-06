@@ -308,7 +308,7 @@
       z-index: 2;
     }
 
-    /* NUOVA HOME AIUTO / ENIGMI (A TUTTO SCHERMO NEL CONTAINER) */
+    /* NUOVA HOME AIUTO / 27 ENIGMI */
     .help-panel-home {
       display: flex;
       flex-direction: column;
@@ -583,10 +583,9 @@
     const DATABASE_ENIGMI = {};
     for (let i = 1; i <= 27; i++) {
       DATABASE_ENIGMI[i] = {
-        password: "key" + i, // Puoi cambiare le password qui (es. "key1", "key2", ecc.)
+        password: "key" + i,
         titolo: "Enigma N° " + i,
-        indizio: "Questo è l'indizio riservato per superare l'enigma numero " + i + ". Analizzate bene la zona.",
-        immagine: "" 
+        indizio: "Questo è l'indizio riservato per superare l'enigma numero " + i + ". Analizzate bene la zona."
       };
     }
 
@@ -727,33 +726,49 @@
       if (inserita === null) return;
 
       if (inserita.trim() === enigma.password) {
-        mostraSchedaEnigmaHome(numero);
+        if (numero === 1) {
+          mostraSchedaEnigma1();
+        } else {
+          mostraSchedaEnigmaGenerica(numero);
+        }
       } else {
         alert("Password errata! Accesso negato.");
       }
     }
 
-    function mostraSchedaEnigmaHome(numero) {
-      const enigma = DATABASE_ENIGMI[numero];
+    /* SCHEDA SPECIFICA PER L'ENIGMA 1 CON I 3 PULSANTI PDF */
+    function mostraSchedaEnigma1() {
       const helpContent = document.getElementById('help-content');
 
-      let htmlImmagine = "";
-      if (enigma.immagine) {
-        htmlImmagine = `
-          <div class="map-image-container">
-            <div class="map-overlay-tag">ACCESSO CONSENTITO</div>
-            <img src="${enigma.immagine}" alt="Indizio Enigma" class="map-image">
-          </div>
-        `;
-      }
+      helpContent.innerHTML = `
+        <p style="color:var(--text-color); font-weight:bold; margin-bottom:10px;">[ACCESSO RIUSCITO - ENIGMA #1]</p>
+        <p style="margin-bottom:12px; font-size:0.95rem;">Seleziona la documentazione PDF desiderata:</p>
+        
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <button class="dino-btn" style="text-align:center;" onclick="apriPdf('Soluzioni/Grandi01.pdf')">> ENIGMA GRANDI</button>
+          <button class="dino-btn" style="text-align:center;" onclick="apriPdf('Soluzioni/Piccoli01.pdf')">> ENIGMA PICCOLI</button>
+          <button class="dino-btn" style="text-align:center;" onclick="apriPdf('Soluzioni/Finale01.pdf')">> ENIGMA FINALE</button>
+        </div>
+
+        <button class="dino-btn back-dino-btn" style="margin-top:16px; text-align:center;" onclick="mostraGrigliaEnigmi()">< TORNA ALLA LISTA ENIGMI</button>
+      `;
+    }
+
+    /* SCHEDA STANDARD PER GLI ALTRI ENIGMI (DA 2 A 27) */
+    function mostraSchedaEnigmaGenerica(numero) {
+      const enigma = DATABASE_ENIGMI[numero];
+      const helpContent = document.getElementById('help-content');
 
       helpContent.innerHTML = `
         <p style="color:var(--text-color); font-weight:bold; margin-bottom:6px;">[ACCESSO RIUSCITO - ENIGMA #${numero}]</p>
         <p style="margin-top:6px;">> <strong>Titolo:</strong> ${enigma.titolo}</p>
         <p style="margin-top:6px;">> <strong>Indizio:</strong> ${enigma.indizio}</p>
-        ${htmlImmagine}
         <button class="dino-btn" style="margin-top:14px; text-align:center;" onclick="mostraGrigliaEnigmi()">< TORNA ALLA LISTA ENIGMI</button>
       `;
+    }
+
+    function apriPdf(percorsoPdf) {
+      window.open(percorsoPdf, '_blank');
     }
 
     function chiudiAiutoHome() {
