@@ -41,6 +41,21 @@
       background-image: radial-gradient(#ff333311 1px, transparent 0);
     }
 
+    /* TEMA SPECIALE JURASSIC PARK */
+    body.dino-mode {
+      --bg-color: #0b140c;
+      --card-bg: #111e13;
+      --text-color: #ffd700;
+      --accent-color: #ff8c00;
+      --border-color: #ffd70044;
+      background-image: radial-gradient(#ffd70011 1px, transparent 0);
+    }
+
+    body.dino-mode .container {
+      border-color: var(--text-color);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    }
+
     .container {
       width: 100%;
       max-width: 440px;
@@ -49,10 +64,6 @@
       box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
       padding: 20px;
       border-radius: 8px;
-    }
-
-    body.hacked-mode .container {
-      box-shadow: 0 0 15px rgba(255, 51, 51, 0.4);
     }
 
     .header {
@@ -72,10 +83,6 @@
       font-size: 1rem;
       color: var(--accent-color);
       margin-top: 6px;
-    }
-
-    body.hacked-mode .header p {
-      color: var(--alert-color);
     }
 
     .hidden {
@@ -193,10 +200,6 @@
       margin-bottom: 18px;
     }
 
-    .search-box button {
-      width: 100%;
-    }
-
     .result-box {
       background: #000;
       border: 1px solid var(--border-color);
@@ -244,7 +247,7 @@
 
     @keyframes blink { from { opacity: 0.3; } to { opacity: 1; } }
 
-    /* CONTENITORE IMMAGINE PERFETTAMENTE PROPORZIONATO E FISSO */
+    /* CONTENITORE IMMAGINE PERFETTAMENTE PROPORZIONATO */
     .map-image-container {
       margin-top: 14px;
       position: relative;
@@ -281,7 +284,40 @@
       z-index: 2;
     }
 
-    /* CHAT IA MOBILE OTTIMIZZATA PER EVITARE TAGLI */
+    /* GRIGLIA PULSANTI DINOSAURI */
+    .dino-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .dino-btn {
+      background: rgba(255, 215, 0, 0.1);
+      border: 2px solid var(--text-color);
+      color: var(--text-color);
+      text-align: left;
+      padding: 12px;
+      font-size: 1.05rem;
+      font-family: var(--font-family);
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .dino-btn:active {
+      background: var(--text-color);
+      color: #000;
+    }
+
+    .back-dino-btn {
+      background: var(--alert-color) !important;
+      color: #fff !important;
+      border: none !important;
+      margin-top: 12px;
+    }
+
+    /* CHAT IA MOBILE */
     .chat-container {
       display: flex;
       flex-direction: column;
@@ -381,7 +417,6 @@
 
     <!-- PANNELLO LOGIN -->
     <div id="login-panel">
-      <!-- Logo federale grande e centrale -->
       <div class="logo-login-wrapper">
         <img src="Immagini/logo.png" alt="Logo Federale" class="logo-login" onerror="this.style.display='none'">
       </div>
@@ -404,7 +439,6 @@
     <div id="dashboard-panel" class="hidden">
       <div class="status-bar">
         <div class="status-left">
-          <!-- Logo federale piccolo nella barra di stato -->
           <img src="Immagini/logo.png" alt="Logo Federale" class="logo-small" onerror="this.style.display='none'">
           <span>SQUADRA: <strong id="user-display" style="color:var(--accent-color)">-</strong></span>
         </div>
@@ -435,6 +469,9 @@
 
     const DATABASE_COORDINATE = {
       "Marco": {
+        "DINO-999": {
+          tipo: "cmd_dino"
+        },
         "714-652-398": {
           tipo: "cmd_atto_1",
           luogo: "Campo da Basket",
@@ -448,6 +485,9 @@
         }
       },
       "squadra2": {
+        "DINO-999": {
+          tipo: "cmd_dino"
+        },
         "N45-E09": {
           tipo: "TEXT",
           luogo: "Campo da Calcio",
@@ -458,6 +498,34 @@
           luogo: "Settore Segreto: Antenna di Trasmissione",
           sbloccato: false
         }
+      }
+    };
+
+    /* DATABASE DEI DINOSAURI (CON IL BRACHIOSAURUS DAL COLLO LUNGO) */
+    const DATABASE_DINOSAURI = {
+      "t-rex": {
+        nome: "Tyrannosaurus Rex",
+        pericolo: "Estremo - Cacciatore Alpha",
+        descrizione: "Il predatore dominante del Cretaceo. Dotato di un morso devastante e vista basata sul movimento.",
+        immagine: "Immagini/trex.jfif"
+      },
+      "velociraptor": {
+        nome: "Velociraptor",
+        pericolo: "Alto - Intelligente e Letale in branco",
+        descrizione: "Piccolo ma estremamente astuto, caccia in coordinazione con i suoi simili.",
+        immagine: "Immagini/raptor.jfif"
+      },
+      "triceratops": {
+        nome: "Triceratops",
+        pericolo: "Medio - Erbivoro Territoriale",
+        descrizione: "Provvisto di tre corna e uno scudo osseo massiccio. Può caricare se provocato.",
+        immagine: "Immagini/triceratops.jfif"
+      },
+      "brachiosaurus": {
+        nome: "Brachiosaurus (Collo Lungo)",
+        pericolo: "Basso - Enorme Erbivoro Pacifico",
+        descrizione: "Uno dei più grandi animali mai vissuti sulla Terra, capace di raggiungere le cime degli alberi più alti con il suo lunghissimo collo.",
+        immagine: "Immagini/brachiosaurus.jfif"
       }
     };
 
@@ -563,6 +631,8 @@
           if (info.tipo === "cmd_atto_1" && !info.sbloccato) {
             coordinataCorrenteHacking = inputCoord;
             avviaEventoHacking();
+          } else if (info.tipo === "cmd_dino") {
+            avviaEventoDino();
           } else {
             const posizioneFinal = info.luogo;
             
@@ -597,6 +667,64 @@
       } else {
         setTimeout(mostraRisultato, 2500);
       }
+    }
+
+    /* GESTIONE EVENTO DINO (JURASSIC PARK) */
+    function avviaEventoDino() {
+      document.body.classList.add('dino-mode');
+      document.getElementById('sys-title').textContent = "JURASSIC PARK DB";
+      document.getElementById('sys-subtitle').textContent = "ARCHIVIO SPECIE ISOLATE";
+      document.getElementById('result-title').textContent = "REGISTRO DINOSAURI:";
+      document.getElementById('search-section').classList.add('hidden');
+
+      mostraHomeDinosauri();
+    }
+
+    function mostraHomeDinosauri() {
+      const resultContent = document.getElementById('result-content');
+      resultContent.innerHTML = `
+        <p style="color:var(--accent-color); font-weight:bold; margin-bottom:10px;">Seleziona un esemplare:</p>
+        <div class="dino-grid">
+          <button class="dino-btn" onclick="apriSchedaDino('t-rex')">> 1. Tyrannosaurus Rex</button>
+          <button class="dino-btn" onclick="apriSchedaDino('velociraptor')">> 2. Velociraptor</button>
+          <button class="dino-btn" onclick="apriSchedaDino('triceratops')">> 3. Triceratops</button>
+          <button class="dino-btn" onclick="apriSchedaDino('brachiosaurus')">> 4. Brachiosaurus (Collo Lungo)</button>
+        </div>
+        <button class="dino-btn back-dino-btn" onclick="esciDaDinoMode()">TORNA AL DB FEDERALE</button>
+      `;
+    }
+
+    function apriSchedaDino(chiave) {
+      const dino = DATABASE_DINOSAURI[chiave];
+      const resultContent = document.getElementById('result-content');
+
+      let htmlImmagine = "";
+      if (dino.immagine) {
+        htmlImmagine = `
+          <div class="map-image-container">
+            <div class="map-overlay-tag">SPECIE: CLASSIFICATA</div>
+            <img src="${dino.immagine}" alt="${dino.nome}" class="map-image">
+          </div>
+        `;
+      }
+
+      resultContent.innerHTML = `
+        <p style="color:var(--accent-color); font-weight:bold;">[SCHEDA DINOSAURO]</p>
+        <p style="margin-top:8px;">> <strong>Nome:</strong> ${dino.nome}</p>
+        <p style="margin-top:4px;">> <strong>Minaccia:</strong> ${dino.pericolo}</p>
+        <p style="margin-top:4px;">> <strong>Info:</strong> ${dino.descrizione}</p>
+        ${htmlImmagine}
+        <button class="dino-btn" style="margin-top:14px; text-align:center;" onclick="mostraHomeDinosauri()">< INDIETRO AL MENU</button>
+      `;
+    }
+
+    function esciDaDinoMode() {
+      document.body.classList.remove('dino-mode');
+      document.getElementById('sys-title').textContent = "DB-FEDERALE";
+      document.getElementById('sys-subtitle').textContent = "SISTEMA LOCALIZZAZIONE MOBILE";
+      document.getElementById('result-title').textContent = "RISULTATO:";
+      document.getElementById('search-section').classList.remove('hidden');
+      document.getElementById('result-content').innerHTML = "In attesa di input...";
     }
 
     function avviaEventoHacking() {
@@ -712,6 +840,7 @@
       squadraAutenticata = null;
       coordinataCorrenteHacking = null;
       document.body.classList.remove('hacked-mode');
+      document.body.classList.remove('dino-mode');
       document.getElementById('sys-title').textContent = "DB-FEDERALE";
       document.getElementById('sys-subtitle').textContent = "SISTEMA LOCALIZZAZIONE MOBILE";
       document.getElementById('result-title').textContent = "RISULTATO:";
